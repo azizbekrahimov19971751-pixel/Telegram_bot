@@ -327,11 +327,7 @@ def main():
   flask_thread = threading.Thread(target=run_flask, daemon=True)
   flask_thread.start()
 
-  # Health server
-  health_server = HTTPServer(("0.0.0.0", PORT), _HealthHandler)
-  t = threading.Thread(target=health_server.serve_forever, daemon=True)
-  t.start()
-  logger.info("Health server port %d da ishga tushdi", PORT)
+
 
   # Keep-alive
   ka = threading.Thread(target=_keep_alive_loop, daemon=True)
