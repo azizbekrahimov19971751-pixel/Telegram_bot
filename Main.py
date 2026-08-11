@@ -37,7 +37,28 @@ def _keep_alive_loop():
 
 
 # Faqat havola kelganda ishlaydigan funksiya
-@bot.message_handler(content_types=["text"])
+import re
+
+
+@bot.message_handler(content_types=['text'])
+def handle_link(message):
+  text = message.text
+
+  # 1. Agar xabar matni bo'lmasa, chiqib ketadi
+  if not text:
+    return
+
+  # 2. Matn ichidan faqat havolani qidiramiz
+  url_match = re.search(r'https?://[^\s]+', text)
+
+  # 3. AGAR HAVOLA BO'LMSA - BOT JAVOB BERMAY MASALANI TO'XTATADI
+  if not url_match:
+    return
+
+  # 4. Agar havola topsa, keyingi ishni boshlaydi
+  url = url_match.group(0)
+
+  # (Bu yerda videoni yuklash kodingiz bo'lishi kerak)@bot.message_handler(content_types=["text"])
 def handle_link(message):
   text = message.text
 
